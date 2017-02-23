@@ -1,42 +1,41 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
+
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -47,7 +46,7 @@ module.exports =
 /******/ 			});
 /******/ 		}
 /******/ 	};
-/******/
+
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -56,68 +55,49 @@ module.exports =
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-/******/
+
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/* unknown exports provided */
-/* all exports used */
-/*!************************!*\
-  !*** external "react" ***!
-  \************************/
 /***/ (function(module, exports) {
 
 module.exports = require("react");
 
 /***/ }),
 /* 1 */
-/* unknown exports provided */
-/* all exports used */
-/*!*******************************!*\
-  !*** external "react-router" ***!
-  \*******************************/
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
 /* 2 */
-/* unknown exports provided */
-/* all exports used */
-/*!******************************!*\
-  !*** external "react-redux" ***!
-  \******************************/
 /***/ (function(module, exports) {
 
 module.exports = require("react-redux");
 
 /***/ }),
 /* 3 */
-/* unknown exports provided */
-/* all exports used */
-/*!************************!*\
-  !*** external "redux" ***!
-  \************************/
 /***/ (function(module, exports) {
 
 module.exports = require("redux");
 
 /***/ }),
 /* 4 */
-/* unknown exports provided */
-/* all exports used */
-/*!******************************!*\
-  !*** ./app/actions/index.js ***!
-  \******************************/
+/***/ (function(module, exports) {
+
+module.exports = require("koa-swig");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -128,15 +108,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.requestDetailData = exports.requestListData = undefined;
 
-var _ActionTypes = __webpack_require__(/*! ../constants/ActionTypes */ 5);
+var _ActionTypes = __webpack_require__(6);
 
 var types = _interopRequireWildcard(_ActionTypes);
 
-var _api = __webpack_require__(/*! ../services/api */ 25);
+var _api = __webpack_require__(26);
 
 var _api2 = _interopRequireDefault(_api);
 
-var _reduxActions = __webpack_require__(/*! redux-actions */ 7);
+var _reduxActions = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -149,14 +129,22 @@ var requestListData = exports.requestListData = (0, _reduxActions.createAction)(
 var requestDetailData = exports.requestDetailData = (0, _reduxActions.createAction)(types.REQUEST_DETAIL_DATA, function (id) {
   return _api2.default.requestDetailData(id);
 });
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(requestListData, 'requestListData', '/Users/zenxds/repository/usee-node/app/actions/index.js');
+
+  __REACT_HOT_LOADER__.register(requestDetailData, 'requestDetailData', '/Users/zenxds/repository/usee-node/app/actions/index.js');
+}();
+
+;
 
 /***/ }),
-/* 5 */
-/* unknown exports provided */
-/* all exports used */
-/*!**************************************!*\
-  !*** ./app/constants/ActionTypes.js ***!
-  \**************************************/
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -167,127 +155,60 @@ Object.defineProperty(exports, "__esModule", {
 });
 var REQUEST_LIST_DATA = exports.REQUEST_LIST_DATA = 'REQUEST_LIST_DATA';
 var REQUEST_DETAIL_DATA = exports.REQUEST_DETAIL_DATA = 'REQUEST_DETAIL_DATA';
+;
 
-/***/ }),
-/* 6 */
-/* unknown exports provided */
-/* all exports used */
-/*!*******************************!*\
-  !*** ./app/containers/App.js ***!
-  \*******************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ 0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(/*! react-redux */ 2);
-
-var _reactRouter = __webpack_require__(/*! react-router */ 1);
-
-__webpack_require__(/*! ../../~/normalize.css */ 20);
-
-__webpack_require__(/*! ./style.css */ 19);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_Component) {
-  _inherits(App, _Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
 
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'app-container' },
-        this.props.children
-      );
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }]);
+  __REACT_HOT_LOADER__.register(REQUEST_LIST_DATA, 'REQUEST_LIST_DATA', '/Users/zenxds/repository/usee-node/app/constants/ActionTypes.js');
 
-  return App;
-}(_react.Component);
+  __REACT_HOT_LOADER__.register(REQUEST_DETAIL_DATA, 'REQUEST_DETAIL_DATA', '/Users/zenxds/repository/usee-node/app/constants/ActionTypes.js');
+}();
 
-App.propTypes = {};
-
-var mapStateToProps = function mapStateToProps(state) {
-  return state;
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
+;
 
 /***/ }),
 /* 7 */
-/* unknown exports provided */
-/* all exports used */
-/*!********************************!*\
-  !*** external "redux-actions" ***!
-  \********************************/
 /***/ (function(module, exports) {
 
 module.exports = require("redux-actions");
 
 /***/ }),
 /* 8 */
-/* unknown exports provided */
-/* all exports used */
-/*!*****************************************!*\
-  !*** ./server/middlewares/ssr-match.js ***!
-  \*****************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(/*! react */ 0);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(/*! react-dom/server */ 30);
+var _server = __webpack_require__(32);
 
-var _reactRedux = __webpack_require__(/*! react-redux */ 2);
+var _reactRedux = __webpack_require__(2);
 
-var _redux = __webpack_require__(/*! redux */ 3);
+var _redux = __webpack_require__(3);
 
-var _reactRouter = __webpack_require__(/*! react-router */ 1);
+var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(/*! ../../app/routes */ 24);
+var _routes = __webpack_require__(25);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _App = __webpack_require__(/*! ../../app/containers/App */ 6);
-
-var _App2 = _interopRequireDefault(_App);
-
-var _configureStore = __webpack_require__(/*! ../../app/store/configureStore */ 26);
+var _configureStore = __webpack_require__(27);
 
 var _configureStore2 = _interopRequireDefault(_configureStore);
 
+var _koaSwig = __webpack_require__(4);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var template = _koaSwig.swig.compile('\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset="UTF-8">\n    <title></title>\n    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">\n    <meta name="format-detection" content="telephone=no,address=no,email=no"/>\n    <meta name="apple-mobile-web-app-capable" content="yes"/>\n    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>\n    <link rel="dns-prefetch" href="//g.alicdn.com" />\n    <link rel="dns-prefetch" href="//img.alicdn.com" />\n    <link rel="dns-prefetch" href="//gm.mmstat.com" />\n    <link rel="dns-prefetch" href="//log.mmstat.com" />\n    <script>\n      window.__INITIAL_STATE__ = {{ state | safe }};\n    </script>\n</head>\n<body>\n\n<div id="app">{{ renderString | safe }}</div>\n\n<script src="/bundle.js"></script>\n</body>\n</html>\n', {
+  autoescape: true
+});
 
 module.exports = function (options) {
 
@@ -396,13 +317,14 @@ module.exports = function (options) {
               { store: store },
               _react2.default.createElement(_reactRouter.RouterContext, renderProps)
             ));
-            _context.next = 42;
-            return this.swig('index', {
+
+
+            this.body = template({
               state: JSON.stringify(store.getState()),
               renderString: renderString
             });
 
-          case 42:
+          case 41:
           case 'end':
             return _context.stop();
         }
@@ -425,21 +347,29 @@ function _match(location) {
     });
   });
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_match, '_match', '/Users/zenxds/repository/usee-node/server/middlewares/ssr-match.js');
+
+  __REACT_HOT_LOADER__.register(template, 'template', '/Users/zenxds/repository/usee-node/server/middlewares/ssr-match.js');
+}();
+
+;
 
 /***/ }),
 /* 9 */
-/* unknown exports provided */
-/* all exports used */
-/*!**************************!*\
-  !*** ./server/router.js ***!
-  \**************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var router = __webpack_require__(/*! koa-router */ 29)();
-var api = __webpack_require__(/*! ./controllers/api */ 27);
+var router = __webpack_require__(31)();
+var api = __webpack_require__(29);
 
 /*
  * match all path
@@ -448,135 +378,124 @@ router.get('/api/list.json', api.list);
 router.get('/api/detail.json', api.detail);
 
 module.exports = router.routes();
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(router, 'router', '/Users/zenxds/repository/usee-node/server/router.js');
+}();
+
+;
 
 /***/ }),
 /* 10 */
-/* unknown exports provided */
-/* all exports used */
-/*!*************************!*\
-  !*** external "config" ***!
-  \*************************/
+/***/ (function(module, exports) {
+
+module.exports = require("babel-polyfill");
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("config");
 
 /***/ }),
-/* 11 */
-/* unknown exports provided */
-/* all exports used */
-/*!**********************!*\
-  !*** external "koa" ***!
-  \**********************/
-/***/ (function(module, exports) {
-
-module.exports = require("koa");
-
-/***/ }),
 /* 12 */
-/* unknown exports provided */
-/* all exports used */
-/*!*********************************!*\
-  !*** external "koa-bodyparser" ***!
-  \*********************************/
 /***/ (function(module, exports) {
 
 module.exports = require("koa-bodyparser");
 
 /***/ }),
 /* 13 */
-/* unknown exports provided */
-/* all exports used */
-/*!***************************!*\
-  !*** external "koa-json" ***!
-  \***************************/
 /***/ (function(module, exports) {
 
 module.exports = require("koa-json");
 
 /***/ }),
 /* 14 */
-/* unknown exports provided */
-/* all exports used */
-/*!*****************************!*\
-  !*** external "koa-logger" ***!
-  \*****************************/
 /***/ (function(module, exports) {
 
 module.exports = require("koa-logger");
 
 /***/ }),
 /* 15 */
-/* unknown exports provided */
-/* all exports used */
-/*!******************************!*\
-  !*** external "koa-session" ***!
-  \******************************/
 /***/ (function(module, exports) {
 
 module.exports = require("koa-session");
 
 /***/ }),
 /* 16 */
-/* unknown exports provided */
-/* all exports used */
-/*!*****************************!*\
-  !*** external "koa-static" ***!
-  \*****************************/
 /***/ (function(module, exports) {
 
 module.exports = require("koa-static");
 
 /***/ }),
 /* 17 */
-/* unknown exports provided */
-/* all exports used */
-/*!***************************!*\
-  !*** external "koa-swig" ***!
-  \***************************/
-/***/ (function(module, exports) {
-
-module.exports = require("koa-swig");
-
-/***/ }),
-/* 18 */
-/* unknown exports provided */
-/* all exports used */
-/*!***********************!*\
-  !*** external "path" ***!
-  \***********************/
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
 /* 19 */
-/* unknown exports provided */
-/* all exports used */
-/*!**********************************!*\
-  !*** ./app/containers/style.css ***!
-  \**********************************/
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
 /* 20 */
-/* unknown exports provided */
-/* all exports used */
-/*!**********************************************!*\
-  !*** ./~/.5.0.0@normalize.css/normalize.css ***!
-  \**********************************************/
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _default2 = __webpack_require__(28);
+
+var _default3 = _interopRequireDefault(_default2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var apis = {
+  list: '/api/list.json',
+  detail: '/api/detail.json'
+};
+
+if (true) {
+  for (var key in apis) {
+    apis[key] = 'http://127.0.0.1:' + _default3.default.port + apis[key];
+  }
+}
+
+var _default = apis;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(apis, 'apis', '/Users/zenxds/repository/usee-node/app/constants/api.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/constants/api.js');
+}();
+
+;
 
 /***/ }),
 /* 21 */
-/* unknown exports provided */
-/* all exports used */
-/*!**********************************!*\
-  !*** ./app/containers/Detail.js ***!
-  \**********************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -588,15 +507,99 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(/*! react */ 0);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(/*! react-redux */ 2);
+var _reactRedux = __webpack_require__(2);
 
-var _reactRouter = __webpack_require__(/*! react-router */ 1);
+var _reactRouter = __webpack_require__(1);
 
-var _actions = __webpack_require__(/*! ../actions */ 4);
+__webpack_require__(19);
+
+__webpack_require__(18);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+  _inherits(App, _Component);
+
+  function App() {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+  }
+
+  _createClass(App, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'app-container' },
+        this.props.children
+      );
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }]);
+
+  return App;
+}(_react.Component);
+
+App.propTypes = {};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return state;
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(App, 'App', '/Users/zenxds/repository/usee-node/app/containers/App.js');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/zenxds/repository/usee-node/app/containers/App.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/containers/App.js');
+}();
+
+;
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(2);
+
+var _reactRouter = __webpack_require__(1);
+
+var _actions = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -668,15 +671,27 @@ var mapStateToProps = function mapStateToProps(state) {
   return state;
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Detail);
+var _default = (0, _reactRedux.connect)(mapStateToProps)(Detail);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Detail, 'Detail', '/Users/zenxds/repository/usee-node/app/containers/Detail.js');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/zenxds/repository/usee-node/app/containers/Detail.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/containers/Detail.js');
+}();
+
+;
 
 /***/ }),
-/* 22 */
-/* unknown exports provided */
-/* all exports used */
-/*!********************************!*\
-  !*** ./app/containers/List.js ***!
-  \********************************/
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -688,15 +703,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(/*! react */ 0);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(/*! react-redux */ 2);
+var _reactRedux = __webpack_require__(2);
 
-var _reactRouter = __webpack_require__(/*! react-router */ 1);
+var _reactRouter = __webpack_require__(1);
 
-var _actions = __webpack_require__(/*! ../actions */ 4);
+var _actions = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -771,15 +786,27 @@ var mapStateToProps = function mapStateToProps(state) {
   return state;
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(List);
+var _default = (0, _reactRedux.connect)(mapStateToProps)(List);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(List, 'List', '/Users/zenxds/repository/usee-node/app/containers/List.js');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/zenxds/repository/usee-node/app/containers/List.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/containers/List.js');
+}();
+
+;
 
 /***/ }),
-/* 23 */
-/* unknown exports provided */
-/* all exports used */
-/*!*******************************!*\
-  !*** ./app/reducers/index.js ***!
-  \*******************************/
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -793,19 +820,19 @@ var _handleActions;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _redux = __webpack_require__(/*! redux */ 3);
+var _redux = __webpack_require__(3);
 
-var _ActionTypes = __webpack_require__(/*! ../constants/ActionTypes */ 5);
+var _ActionTypes = __webpack_require__(6);
 
 var types = _interopRequireWildcard(_ActionTypes);
 
-var _reduxActions = __webpack_require__(/*! redux-actions */ 7);
+var _reduxActions = __webpack_require__(7);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-exports.default = (0, _reduxActions.handleActions)((_handleActions = {}, _defineProperty(_handleActions, types.REQUEST_LIST_DATA, function (state, action) {
+var _default = (0, _reduxActions.handleActions)((_handleActions = {}, _defineProperty(_handleActions, types.REQUEST_LIST_DATA, function (state, action) {
   if (action.error) {
     return state;
   }
@@ -826,13 +853,21 @@ exports.default = (0, _reduxActions.handleActions)((_handleActions = {}, _define
   detail: {}
 });
 
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/reducers/index.js');
+}();
+
+;
+
 /***/ }),
-/* 24 */
-/* unknown exports provided */
-/* all exports used */
-/*!***********************!*\
-  !*** ./app/routes.js ***!
-  \***********************/
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -842,27 +877,27 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(/*! react */ 0);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(/*! react-router */ 1);
+var _reactRouter = __webpack_require__(1);
 
-var _App = __webpack_require__(/*! ./containers/App */ 6);
+var _App = __webpack_require__(21);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _List = __webpack_require__(/*! ./containers/List */ 22);
+var _List = __webpack_require__(23);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _Detail = __webpack_require__(/*! ./containers/Detail */ 21);
+var _Detail = __webpack_require__(22);
 
 var _Detail2 = _interopRequireDefault(_Detail);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _react2.default.createElement(
+var _default = _react2.default.createElement(
   _reactRouter.Router,
   { history: _reactRouter.browserHistory },
   _react2.default.createElement(
@@ -873,13 +908,21 @@ exports.default = _react2.default.createElement(
   )
 );
 
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/routes.js');
+}();
+
+;
+
 /***/ }),
-/* 25 */
-/* unknown exports provided */
-/* all exports used */
-/*!*****************************!*\
-  !*** ./app/services/api.js ***!
-  \*****************************/
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -889,11 +932,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _isomorphicFetch = __webpack_require__(/*! isomorphic-fetch */ 28);
+var _isomorphicFetch = __webpack_require__(30);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
-var _api = __webpack_require__(/*! ../constants/api */ 35);
+var _api = __webpack_require__(20);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -902,7 +945,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * api请求
  */
-exports.default = {
+var _default = {
   requestListData: function requestListData() {
     return (0, _isomorphicFetch2.default)(_api2.default.list).then(function (response) {
       return response.json();
@@ -918,14 +961,21 @@ exports.default = {
     });
   }
 };
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/services/api.js');
+}();
+
+;
 
 /***/ }),
-/* 26 */
-/* unknown exports provided */
-/* all exports used */
-/*!*************************************!*\
-  !*** ./app/store/configureStore.js ***!
-  \*************************************/
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -936,21 +986,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = configureStore;
 
-var _redux = __webpack_require__(/*! redux */ 3);
+var _redux = __webpack_require__(3);
 
-var _reduxThunk = __webpack_require__(/*! redux-thunk */ 33);
+var _reduxThunk = __webpack_require__(35);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxLogger = __webpack_require__(/*! redux-logger */ 31);
+var _reduxLogger = __webpack_require__(33);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _reduxPromise = __webpack_require__(/*! redux-promise */ 32);
+var _reduxPromise = __webpack_require__(34);
 
 var _reduxPromise2 = _interopRequireDefault(_reduxPromise);
 
-var _reducers = __webpack_require__(/*! ../reducers */ 23);
+var _reducers = __webpack_require__(24);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -965,14 +1015,43 @@ function configureStore(initialState) {
   var store = (0, _redux.createStore)(_reducers2.default, initialState, _redux.applyMiddleware.apply(undefined, middleware));
   return store;
 }
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(configureStore, 'configureStore', '/Users/zenxds/repository/usee-node/app/store/configureStore.js');
+
+  __REACT_HOT_LOADER__.register(middleware, 'middleware', '/Users/zenxds/repository/usee-node/app/store/configureStore.js');
+}();
+
+;
 
 /***/ }),
-/* 27 */
-/* unknown exports provided */
-/* all exports used */
-/*!***********************************!*\
-  !*** ./server/controllers/api.js ***!
-  \***********************************/
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  keys: ['58f9014fb686fe9b6449f1769e37ec90a676e9c6'],
+  port: 7001
+};
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -983,11 +1062,6 @@ var data = [{
     "thumdImage": "https://img.alicdn.com/imgextra/i2/1060815481/TB2V.JEd90jpuFjy0FlXXc0bpXa_!!0-mtopupload.jpg",
     "title": "美美春季装，你的轻盈仙女上线啦！",
     "content": "又到了万物复苏的春天了，仿佛一切美好都开始发酵。美美的春装已经开始不断上线了，终于可以脱下厚重的大衣，化身轻盈多姿，身材婀娜的小仙女啦，是不是对这个季节的爱又多了一分呢？都说小孩子不能输在起跑线上，我的小仙女们，你怎么甘心输在这一年的起跑线上呢？所以赶快整装待发，你爱的自己上线啦！"
-}, {
-    "contentId": 326663,
-    "thumdImage": "https://img.alicdn.com/imgextra/i1/1060815481/TB20F8vdYFlpuFjy0FgXXbRBVXa_!!0-mtopupload.jpg",
-    "title": "今年&ldquo;情人节&rdquo;   让爱大声说出来！",
-    "content": "现在的社会高速发展，特别是智能化网络化飞速发展，造福着人类社会，给我们日常生活提供了极大的便利。尤其是智能电话，不仅可以打电话而且其他功能是多的玩不过来。但是有这么一部分人他们老了，跟不上这时代的步伐，但却又急需得到关怀，那就是空巢老人。即使你没有时间去陪伴，那么请你多多送一份语音的关怀吧。"
 }, {
     "contentId": 326662,
     "thumdImage": "https://img.alicdn.com/imgextra/i4/1060815481/TB2XU4CdYplpuFjSspiXXcdfFXa_!!2-mtopupload.png",
@@ -1146,172 +1220,106 @@ exports.detail = regeneratorRuntime.mark(function _callee2(next) {
         }
     }, _callee2, this);
 });
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(data, "data", "/Users/zenxds/repository/usee-node/server/controllers/api.js");
+}();
+
+;
 
 /***/ }),
-/* 28 */
-/* unknown exports provided */
-/* all exports used */
-/*!***********************************!*\
-  !*** external "isomorphic-fetch" ***!
-  \***********************************/
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 29 */
-/* unknown exports provided */
-/* all exports used */
-/*!*****************************!*\
-  !*** external "koa-router" ***!
-  \*****************************/
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-router");
 
 /***/ }),
-/* 30 */
-/* unknown exports provided */
-/* all exports used */
-/*!***********************************!*\
-  !*** external "react-dom/server" ***!
-  \***********************************/
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 31 */
-/* unknown exports provided */
-/* all exports used */
-/*!*******************************!*\
-  !*** external "redux-logger" ***!
-  \*******************************/
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-logger");
 
 /***/ }),
-/* 32 */
-/* unknown exports provided */
-/* all exports used */
-/*!********************************!*\
-  !*** external "redux-promise" ***!
-  \********************************/
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-promise");
 
 /***/ }),
-/* 33 */
-/* unknown exports provided */
-/* all exports used */
-/*!******************************!*\
-  !*** external "redux-thunk" ***!
-  \******************************/
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 34 */
-/* unknown exports provided */
-/* all exports used */
-/*!**************************!*\
-  !*** ./server/server.js ***!
-  \**************************/
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var path = __webpack_require__(/*! path */ 18);
-var app = __webpack_require__(/*! koa */ 11)();
-var session = __webpack_require__(/*! koa-session */ 15);
-var koaStatic = __webpack_require__(/*! koa-static */ 16);
-var bodyparser = __webpack_require__(/*! koa-bodyparser */ 12);
-var swig = __webpack_require__(/*! koa-swig */ 17);
-var json = __webpack_require__(/*! koa-json */ 13);
-var logger = __webpack_require__(/*! koa-logger */ 14);
-var config = __webpack_require__(/*! config */ 10);
+if (true) {
+  __webpack_require__(10);
+}
+var path = __webpack_require__(17);
+var session = __webpack_require__(15);
+var koaStatic = __webpack_require__(16);
+var bodyparser = __webpack_require__(12);
+var swig = __webpack_require__(4);
+var json = __webpack_require__(13);
+var logger = __webpack_require__(14);
+var config = __webpack_require__(11);
 
-app.context.swig = swig({
-  root: path.join(__dirname, 'views'),
-  autoescape: true,
-  ext: 'html'
-});
-app.keys = config.get('keys');
-app.use(logger());
-app.use(bodyparser());
-app.use(session(app));
-app.use(json());
-app.use(koaStatic(path.join(__dirname, '../build')));
-app.use(koaStatic(path.join(__dirname, '../node_modules')));
-app.use(__webpack_require__(/*! ./middlewares/ssr-match */ 8)({}));
-app.use(__webpack_require__(/*! ./router */ 9));
+module.exports = function (app) {
+  app.context.swig = swig({
+    root: path.join(__dirname, 'views'),
+    autoescape: true,
+    ext: 'html'
+  });
+  app.keys = config.get('keys');
+  app.use(logger());
+  app.use(bodyparser());
+  app.use(session(app));
+  app.use(json());
+  app.use(koaStatic(path.join(__dirname, '../build')));
+  app.use(koaStatic(path.join(__dirname, '../node_modules')));
+  app.use(__webpack_require__(8)({}));
+  app.use(__webpack_require__(9));
 
-app.on('error', function (err) {
-  console.log(err);
-});
+  app.on('error', function (err) {
+    console.log(err);
+  });
 
-module.exports = function () {
   app.listen(config.get('port'), function () {
     console.log('server is running on port ' + this.address().port);
   });
 };
+;
 
-/***/ }),
-/* 35 */
-/* unknown exports provided */
-/* all exports used */
-/*!******************************!*\
-  !*** ./app/constants/api.js ***!
-  \******************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _default = __webpack_require__(/*! ../../config/default.js */ 36);
-
-var _default2 = _interopRequireDefault(_default);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var apis = {
-  list: '/api/list.json',
-  detail: '/api/detail.json'
-};
-
-if (true) {
-  for (var key in apis) {
-    apis[key] = 'http://127.0.0.1:' + _default2.default.port + apis[key];
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
   }
-}
+}();
 
-exports.default = apis;
-
-/***/ }),
-/* 36 */
-/* unknown exports provided */
-/* all exports used */
-/*!***************************!*\
-  !*** ./config/default.js ***!
-  \***************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-  keys: ['58f9014fb686fe9b6449f1769e37ec90a676e9c6'],
-  port: 7001
-};
+;
 
 /***/ })
-/******/ ]);
-//# sourceMappingURL=server.build.js.map
+/******/ ])));

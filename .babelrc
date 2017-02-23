@@ -3,5 +3,19 @@
    "latest",
     "react"
   ],
-  "plugins": ["transform-object-rest-spread"]
+  "plugins": [
+    "transform-object-rest-spread"
+  ],
+  "env": {
+    "node": {
+      "plugins": [
+        [
+          "babel-plugin-transform-require-ignore",
+          {
+            "extensions": [".css", ".less", ".sass"]
+          }
+        ]
+      ]
+    }
+  }
 }

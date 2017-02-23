@@ -17,6 +17,7 @@ class Detail extends Component {
     this.constructor.fetch(this.props.dispatch, this.props.params)
   }
 
+
   render() {
     const detail = this.props.detail
     return (

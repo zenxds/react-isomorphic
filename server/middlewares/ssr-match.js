@@ -39,14 +39,18 @@ const template = swig.compile(`
 
 module.exports = function(options) {
 
-  return function*(next) {
+  return async (ctx, next) => {
+    if (/\.json$/.test(ctx.url)) {
+      return await next()
+    }
+
     const store = configureStore()
-    const { redirectLocation, renderProps } = yield _match({ routes: routes, location: this.url })
+    const { redirectLocation, renderProps } = await _match({ routes: routes, location: ctx.url })
 
     if (redirectLocation) {
-      return yield this.redirect(redirectLocation.pathname + redirectLocation.search)
+      return await ctx.redirect(redirectLocation.pathname + redirectLocation.search)
     } else if(!renderProps) {
-      return yield next
+      return await next()
     }
 
     const params = renderProps.params
@@ -63,7 +67,7 @@ module.exports = function(options) {
       }
     }
 
-    yield Promise.all(tasks)
+    await Promise.all(tasks)
 
     const renderString = renderToString((
       <Provider store={store}>
@@ -71,7 +75,7 @@ module.exports = function(options) {
       </Provider>
     ))
 
-    this.body = template({
+    ctx.body = template({
       state: JSON.stringify(store.getState()),
       renderString: renderString
     })

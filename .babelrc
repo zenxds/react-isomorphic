@@ -1,21 +1,32 @@
 {
   "presets": [
-   "latest",
+    [
+      "env",
+      {
+        "targets": {
+          "node": true
+        },
+        "exclude": ["transform-async-to-generator", "transform-regenerator"]
+      }
+    ],
     "react"
   ],
   "plugins": [
-    "transform-object-rest-spread"
-  ],
-  "env": {
-    "node": {
-      "plugins": [
-        [
-          "babel-plugin-transform-require-ignore",
-          {
-            "extensions": [".css", ".less", ".sass"]
-          }
-        ]
-      ]
-    }
-  }
+    "transform-object-rest-spread",
+    [
+      "babel-plugin-transform-require-ignore",
+      {
+        "extensions": [".css", ".less", ".sass"]
+      }
+    ],
+    ["minify-replace", {
+      "replacements": [{
+        "identifierName": "__SERVER__",
+        "replacement": {
+          "type": "booleanLiteral",
+          "value": true
+        }
+      }]
+    }]
+  ]
 }

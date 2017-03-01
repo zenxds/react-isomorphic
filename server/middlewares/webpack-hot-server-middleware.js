@@ -1,5 +1,5 @@
-'use strict';
-const hotMiddleware = require('webpack-hot-middleware')
+'use strict'
+const webpackHotServerMiddleware = require('webpack-hot-server-middleware')
 
 function applyMiddleware(middleware, req, res) {
   const { end: originalEnd } = res
@@ -24,20 +24,13 @@ function applyMiddleware(middleware, req, res) {
 }
 
 module.exports = function(compiler, option) {
-  const expressMiddleware = hotMiddleware(compiler, option)
+  const expressMiddleware = webpackHotServerMiddleware(compiler, option)
 
-  const koaMiddleware = async (ctx, next) => {
-
+  return async (ctx, next) => {
     const hasNext = await applyMiddleware(expressMiddleware, ctx.req, ctx.res)
 
     if (hasNext) {
       await next()
     }
   }
-
-  Object.keys(expressMiddleware).forEach(p => {
-    koaMiddleware[p] = expressMiddleware[p]
-  })
-
-  return koaMiddleware
 }

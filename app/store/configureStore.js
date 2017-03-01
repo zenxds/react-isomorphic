@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import promise from 'redux-promise'
 
-import reducer from '../reducers'
+import reducers from '../reducers'
 
 // const middleware = process.env.NODE_ENV === 'production' ?
 //   [ thunk, promise ] :
@@ -12,7 +12,7 @@ const middleware = [ thunk, promise ]
 
 export default function configureStore(initialState) {
   const store = createStore(
-    reducer,
+    reducers,
     initialState,
     applyMiddleware(...middleware)
   )

@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
@@ -15,13 +16,10 @@ const baseConfig = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: [
-          path.resolve(__dirname, "node_modules"),
-        ],
-        options: {
-          presets: ['latest', 'react']
-        }
+          path.resolve(__dirname, "node_modules")
+        ]
       }
-     ]
+    ]
    },
 
    plugins: []
@@ -48,7 +46,7 @@ module.exports = [merge(baseConfig, {
   entry: './server/server.js',
   output: {
     filename: 'server.js',
-    libraryTarget: 'commonjs'
+    libraryTarget: 'commonjs2'
   },
   externals: [nodeExternals()],
   target: 'node',

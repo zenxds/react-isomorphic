@@ -14,15 +14,15 @@ function applyMiddleware(middleware, req, res) {
       /**
        * 一个bundle请求找到了，应该直接返回
        */
-      res.send = function() {
-        originalEnd.apply(res, arguments)
+      res.end = function(...args) {
+        originalEnd.apply(res, args)
         resolve(false)
       }
 
       /**
        * 第三个参数是next，调用了应该继续往下走
        */
-      middleware(req, res, () => {
+      middleware(req, res, function() {
         resolve(true)
       })
     } catch (error) {
@@ -33,20 +33,29 @@ function applyMiddleware(middleware, req, res) {
 
 module.exports = function(compiler, option) {
   const expressMiddleware = webpackDevMiddleware(compiler, option)
+  const locals = {}
 
-  function* koaMiddleware(next) {
-    const hasNext = yield applyMiddleware(expressMiddleware, this.req, {
+  const koaMiddleware = async (ctx, next) => {
+    const hasNext = await applyMiddleware(expressMiddleware, ctx.req, {
       end: (content) => {
-        this.body = content
+        ctx.body = content
       },
-      setHeader: (name, value) => {
-        this.set(name, value)
+      setHeader: (...args) => {
+        ctx.set.apply(ctx, args)
       },
-      locals: {}
+      locals: {
+        set webpackStats(val) {
+          locals.webpackStats = val;
+        }
+      },
+      set statusCode(val){
+        ctx.status = val
+      }
     })
+    ctx.res.locals = locals
 
     if (hasNext) {
-      yield next
+      await next()
     }
   }
 

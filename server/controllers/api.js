@@ -117,15 +117,15 @@ const data = [{
     "content": "早春依旧寒意袭人，虽然偶尔的阳光明媚，但是早上和晚上仍然是挺冷的。那么，就需要时尚又保暖的穿搭啦！所以，毛衣是首选。不过，不是什么毛衣我们都要穿的，要穿就要穿的不一般！你就是你，人间不一样的烟火！就要配上创意十足，超级个性的毛衣！所以，快快跟随小编来看一下这些意想不到的创意之作吧！"
 }]
 
-exports.list = function* (next) {
-  this.body = {
+exports.list = (ctx, next) => {
+  ctx.body = {
     result: data
   }
 }
 
-exports.detail = function* (next) {
+exports.detail = (ctx, next) => {
   let item
-  const id = this.query.id
+  const id = ctx.query.id
 
   data.forEach((d) => {
     if (d.contentId == id) {
@@ -134,7 +134,7 @@ exports.detail = function* (next) {
   })
 
   if (item) {
-    this.body = {
+    ctx.body = {
       result: item
     }
   }

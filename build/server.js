@@ -1,4 +1,5 @@
-(function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -63,7 +64,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 36);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -129,19 +130,6 @@ var requestListData = exports.requestListData = (0, _reduxActions.createAction)(
 var requestDetailData = exports.requestDetailData = (0, _reduxActions.createAction)(types.REQUEST_DETAIL_DATA, function (id) {
   return _api2.default.requestDetailData(id);
 });
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(requestListData, 'requestListData', '/Users/zenxds/repository/usee-node/app/actions/index.js');
-
-  __REACT_HOT_LOADER__.register(requestDetailData, 'requestDetailData', '/Users/zenxds/repository/usee-node/app/actions/index.js');
-}();
-
-;
 
 /***/ }),
 /* 6 */
@@ -155,19 +143,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 var REQUEST_LIST_DATA = exports.REQUEST_LIST_DATA = 'REQUEST_LIST_DATA';
 var REQUEST_DETAIL_DATA = exports.REQUEST_DETAIL_DATA = 'REQUEST_DETAIL_DATA';
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(REQUEST_LIST_DATA, 'REQUEST_LIST_DATA', '/Users/zenxds/repository/usee-node/app/constants/ActionTypes.js');
-
-  __REACT_HOT_LOADER__.register(REQUEST_DETAIL_DATA, 'REQUEST_DETAIL_DATA', '/Users/zenxds/repository/usee-node/app/constants/ActionTypes.js');
-}();
-
-;
 
 /***/ }),
 /* 7 */
@@ -186,7 +161,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(32);
+var _server = __webpack_require__(34);
 
 var _reactRedux = __webpack_require__(2);
 
@@ -212,125 +187,67 @@ var template = _koaSwig.swig.compile('\n<!DOCTYPE html>\n<html>\n<head>\n    <me
 
 module.exports = function (options) {
 
-  return regeneratorRuntime.mark(function _callee(next) {
-    var store, _ref, redirectLocation, renderProps, params, tasks, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, component, _tasks, renderString;
+  return async function (ctx, next) {
+    var store = (0, _configureStore2.default)();
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            store = (0, _configureStore2.default)();
-            _context.next = 3;
-            return _match({ routes: _routes2.default, location: this.url });
+    var _ref = await _match({ routes: _routes2.default, location: ctx.url }),
+        redirectLocation = _ref.redirectLocation,
+        renderProps = _ref.renderProps;
 
-          case 3:
-            _ref = _context.sent;
-            redirectLocation = _ref.redirectLocation;
-            renderProps = _ref.renderProps;
+    if (redirectLocation) {
+      return await ctx.redirect(redirectLocation.pathname + redirectLocation.search);
+    } else if (!renderProps) {
+      return await next();
+    }
 
-            if (!redirectLocation) {
-              _context.next = 12;
-              break;
-            }
+    var params = renderProps.params;
+    var tasks = [];
 
-            _context.next = 9;
-            return this.redirect(redirectLocation.pathname + redirectLocation.search);
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
 
-          case 9:
-            return _context.abrupt('return', _context.sent);
+    try {
+      for (var _iterator = renderProps.components[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var component = _step.value;
 
-          case 12:
-            if (renderProps) {
-              _context.next = 16;
-              break;
-            }
-
-            _context.next = 15;
-            return next;
-
-          case 15:
-            return _context.abrupt('return', _context.sent);
-
-          case 16:
-            params = renderProps.params;
-            tasks = [];
-            _iteratorNormalCompletion = true;
-            _didIteratorError = false;
-            _iteratorError = undefined;
-            _context.prev = 21;
-
-
-            for (_iterator = renderProps.components[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-              component = _step.value;
-
-              if (component && component.WrappedComponent && component.WrappedComponent.fetch) {
-                _tasks = component.WrappedComponent.fetch(store.dispatch, params);
-
-                if (Array.isArray(_tasks)) {
-                  tasks = tasks.concat(_tasks);
-                } else if (_tasks && _tasks.then) {
-                  tasks.push(_tasks);
-                }
-              }
-            }
-
-            _context.next = 29;
-            break;
-
-          case 25:
-            _context.prev = 25;
-            _context.t0 = _context['catch'](21);
-            _didIteratorError = true;
-            _iteratorError = _context.t0;
-
-          case 29:
-            _context.prev = 29;
-            _context.prev = 30;
-
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-
-          case 32:
-            _context.prev = 32;
-
-            if (!_didIteratorError) {
-              _context.next = 35;
-              break;
-            }
-
-            throw _iteratorError;
-
-          case 35:
-            return _context.finish(32);
-
-          case 36:
-            return _context.finish(29);
-
-          case 37:
-            _context.next = 39;
-            return Promise.all(tasks);
-
-          case 39:
-            renderString = (0, _server.renderToString)(_react2.default.createElement(
-              _reactRedux.Provider,
-              { store: store },
-              _react2.default.createElement(_reactRouter.RouterContext, renderProps)
-            ));
-
-
-            this.body = template({
-              state: JSON.stringify(store.getState()),
-              renderString: renderString
-            });
-
-          case 41:
-          case 'end':
-            return _context.stop();
+        if (component && component.WrappedComponent && component.WrappedComponent.fetch) {
+          var _tasks = component.WrappedComponent.fetch(store.dispatch, params);
+          if (Array.isArray(_tasks)) {
+            tasks = tasks.concat(_tasks);
+          } else if (_tasks && _tasks.then) {
+            tasks.push(_tasks);
+          }
         }
       }
-    }, _callee, this, [[21, 25, 29, 37], [30,, 32, 36]]);
-  });
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    await Promise.all(tasks);
+
+    var renderString = (0, _server.renderToString)(_react2.default.createElement(
+      _reactRedux.Provider,
+      { store: store },
+      _react2.default.createElement(_reactRouter.RouterContext, renderProps)
+    ));
+
+    ctx.body = template({
+      state: JSON.stringify(store.getState()),
+      renderString: renderString
+    });
+  };
 };
 
 function _match(location) {
@@ -347,19 +264,6 @@ function _match(location) {
     });
   });
 }
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_match, '_match', '/Users/zenxds/repository/usee-node/server/middlewares/ssr-match.js');
-
-  __REACT_HOT_LOADER__.register(template, 'template', '/Users/zenxds/repository/usee-node/server/middlewares/ssr-match.js');
-}();
-
-;
 
 /***/ }),
 /* 9 */
@@ -368,7 +272,8 @@ var _temp = function () {
 "use strict";
 
 
-var router = __webpack_require__(31)();
+var Router = __webpack_require__(33);
+var router = new Router();
 var api = __webpack_require__(29);
 
 /*
@@ -378,23 +283,12 @@ router.get('/api/list.json', api.list);
 router.get('/api/detail.json', api.detail);
 
 module.exports = router.routes();
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(router, 'router', '/Users/zenxds/repository/usee-node/server/router.js');
-}();
-
-;
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = require("babel-polyfill");
+module.exports = require("co");
 
 /***/ }),
 /* 11 */
@@ -412,43 +306,43 @@ module.exports = require("koa-bodyparser");
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-json");
+module.exports = require("koa-convert");
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-logger");
+module.exports = require("koa-json");
 
 /***/ }),
 /* 15 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-session");
+module.exports = require("koa-logger");
 
 /***/ }),
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-static");
+module.exports = require("koa-onerror");
 
 /***/ }),
 /* 17 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("koa-session");
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports) {
 
-
+module.exports = require("koa-static");
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-
+module.exports = require("path");
 
 /***/ }),
 /* 20 */
@@ -461,9 +355,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _default2 = __webpack_require__(28);
+var _default = __webpack_require__(28);
 
-var _default3 = _interopRequireDefault(_default2);
+var _default2 = _interopRequireDefault(_default);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -474,25 +368,11 @@ var apis = {
 
 if (true) {
   for (var key in apis) {
-    apis[key] = 'http://127.0.0.1:' + _default3.default.port + apis[key];
+    apis[key] = 'http://127.0.0.1:' + _default2.default.port + apis[key];
   }
 }
 
-var _default = apis;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(apis, 'apis', '/Users/zenxds/repository/usee-node/app/constants/api.js');
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/constants/api.js');
-}();
-
-;
+exports.default = apis;
 
 /***/ }),
 /* 21 */
@@ -515,9 +395,9 @@ var _reactRedux = __webpack_require__(2);
 
 var _reactRouter = __webpack_require__(1);
 
-__webpack_require__(19);
+__webpack_require__(31);
 
-__webpack_require__(18);
+__webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -559,24 +439,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return state;
 };
 
-var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(App, 'App', '/Users/zenxds/repository/usee-node/app/containers/App.js');
-
-  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/zenxds/repository/usee-node/app/containers/App.js');
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/containers/App.js');
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ }),
 /* 22 */
@@ -671,24 +534,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return state;
 };
 
-var _default = (0, _reactRedux.connect)(mapStateToProps)(Detail);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(Detail, 'Detail', '/Users/zenxds/repository/usee-node/app/containers/Detail.js');
-
-  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/zenxds/repository/usee-node/app/containers/Detail.js');
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/containers/Detail.js');
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Detail);
 
 /***/ }),
 /* 23 */
@@ -786,24 +632,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return state;
 };
 
-var _default = (0, _reactRedux.connect)(mapStateToProps)(List);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(List, 'List', '/Users/zenxds/repository/usee-node/app/containers/List.js');
-
-  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/zenxds/repository/usee-node/app/containers/List.js');
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/containers/List.js');
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(List);
 
 /***/ }),
 /* 24 */
@@ -832,7 +661,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _default = (0, _reduxActions.handleActions)((_handleActions = {}, _defineProperty(_handleActions, types.REQUEST_LIST_DATA, function (state, action) {
+exports.default = (0, _reduxActions.handleActions)((_handleActions = {}, _defineProperty(_handleActions, types.REQUEST_LIST_DATA, function (state, action) {
   if (action.error) {
     return state;
   }
@@ -852,19 +681,6 @@ var _default = (0, _reduxActions.handleActions)((_handleActions = {}, _definePro
   list: [],
   detail: {}
 });
-
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/reducers/index.js');
-}();
-
-;
 
 /***/ }),
 /* 25 */
@@ -897,7 +713,7 @@ var _Detail2 = _interopRequireDefault(_Detail);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _react2.default.createElement(
+exports.default = _react2.default.createElement(
   _reactRouter.Router,
   { history: _reactRouter.browserHistory },
   _react2.default.createElement(
@@ -907,19 +723,6 @@ var _default = _react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: 'detail/:id', component: _Detail2.default })
   )
 );
-
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/routes.js');
-}();
-
-;
 
 /***/ }),
 /* 26 */
@@ -932,7 +735,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _isomorphicFetch = __webpack_require__(30);
+var _isomorphicFetch = __webpack_require__(32);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -945,7 +748,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * api请求
  */
-var _default = {
+exports.default = {
   requestListData: function requestListData() {
     return (0, _isomorphicFetch2.default)(_api2.default.list).then(function (response) {
       return response.json();
@@ -961,18 +764,6 @@ var _default = {
     });
   }
 };
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zenxds/repository/usee-node/app/services/api.js');
-}();
-
-;
 
 /***/ }),
 /* 27 */
@@ -988,15 +779,15 @@ exports.default = configureStore;
 
 var _redux = __webpack_require__(3);
 
-var _reduxThunk = __webpack_require__(35);
+var _reduxThunk = __webpack_require__(37);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxLogger = __webpack_require__(33);
+var _reduxLogger = __webpack_require__(35);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _reduxPromise = __webpack_require__(34);
+var _reduxPromise = __webpack_require__(36);
 
 var _reduxPromise2 = _interopRequireDefault(_reduxPromise);
 
@@ -1015,19 +806,6 @@ function configureStore(initialState) {
   var store = (0, _redux.createStore)(_reducers2.default, initialState, _redux.applyMiddleware.apply(undefined, middleware));
   return store;
 }
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(configureStore, 'configureStore', '/Users/zenxds/repository/usee-node/app/store/configureStore.js');
-
-  __REACT_HOT_LOADER__.register(middleware, 'middleware', '/Users/zenxds/repository/usee-node/app/store/configureStore.js');
-}();
-
-;
 
 /***/ }),
 /* 28 */
@@ -1040,15 +818,6 @@ module.exports = {
   keys: ['58f9014fb686fe9b6449f1769e37ec90a676e9c6'],
   port: 7001
 };
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-}();
-
-;
 
 /***/ }),
 /* 29 */
@@ -1174,152 +943,119 @@ var data = [{
     "content": "早春依旧寒意袭人，虽然偶尔的阳光明媚，但是早上和晚上仍然是挺冷的。那么，就需要时尚又保暖的穿搭啦！所以，毛衣是首选。不过，不是什么毛衣我们都要穿的，要穿就要穿的不一般！你就是你，人间不一样的烟火！就要配上创意十足，超级个性的毛衣！所以，快快跟随小编来看一下这些意想不到的创意之作吧！"
 }];
 
-exports.list = regeneratorRuntime.mark(function _callee(next) {
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-            switch (_context.prev = _context.next) {
-                case 0:
-                    this.body = {
-                        result: data
-                    };
+exports.list = function (ctx, next) {
+    ctx.body = {
+        result: data
+    };
+};
 
-                case 1:
-                case "end":
-                    return _context.stop();
-            }
+exports.detail = function (ctx, next) {
+    var item = void 0;
+    var id = ctx.query.id;
+
+    data.forEach(function (d) {
+        if (d.contentId == id) {
+            item = d;
         }
-    }, _callee, this);
-});
+    });
 
-exports.detail = regeneratorRuntime.mark(function _callee2(next) {
-    var item, id;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-            switch (_context2.prev = _context2.next) {
-                case 0:
-                    item = void 0;
-                    id = this.query.id;
-
-
-                    data.forEach(function (d) {
-                        if (d.contentId == id) {
-                            item = d;
-                        }
-                    });
-
-                    if (item) {
-                        this.body = {
-                            result: item
-                        };
-                    }
-
-                case 4:
-                case "end":
-                    return _context2.stop();
-            }
-        }
-    }, _callee2, this);
-});
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
+    if (item) {
+        ctx.body = {
+            result: item
+        };
     }
-
-    __REACT_HOT_LOADER__.register(data, "data", "/Users/zenxds/repository/usee-node/server/controllers/api.js");
-}();
-
-;
+};
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = require("isomorphic-fetch");
+
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-router");
+
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dom/server");
+module.exports = require("isomorphic-fetch");
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-logger");
+module.exports = require("koa-router");
 
 /***/ }),
 /* 34 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-promise");
+module.exports = require("react-dom/server");
 
 /***/ }),
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-thunk");
+module.exports = require("redux-logger");
 
 /***/ }),
 /* 36 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-promise");
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-if (true) {
-  __webpack_require__(10);
-}
-var path = __webpack_require__(17);
-var session = __webpack_require__(15);
-var koaStatic = __webpack_require__(16);
-var bodyparser = __webpack_require__(12);
-var swig = __webpack_require__(4);
-var json = __webpack_require__(13);
-var logger = __webpack_require__(14);
+var path = __webpack_require__(19);
+var co = __webpack_require__(10);
 var config = __webpack_require__(11);
+var convert = __webpack_require__(13);
+var session = __webpack_require__(17);
+var koaStatic = __webpack_require__(18);
+var bodyParser = __webpack_require__(12);
+var swig = __webpack_require__(4);
+var json = __webpack_require__(14);
+var logger = __webpack_require__(15);
+var onerror = __webpack_require__(16);
 
 module.exports = function (app) {
-  app.context.swig = swig({
+  app.context.swig = co.wrap(swig({
     root: path.join(__dirname, 'views'),
     autoescape: true,
     ext: 'html'
-  });
+  }));
+
   app.keys = config.get('keys');
-  app.use(logger());
-  app.use(bodyparser());
-  app.use(session(app));
-  app.use(json());
-  app.use(koaStatic(path.join(__dirname, '../build')));
-  app.use(koaStatic(path.join(__dirname, '../node_modules')));
+  onerror(app);
+
+  app.use(convert(logger()));
+  app.use(bodyParser());
+  app.use(convert(session(app)));
+  app.use(convert(json()));
+  app.use(convert(koaStatic(path.join(__dirname, '../build'))));
+  app.use(convert(koaStatic(path.join(__dirname, '../node_modules'))));
   app.use(__webpack_require__(8)({}));
   app.use(__webpack_require__(9));
-
-  app.on('error', function (err) {
-    console.log(err);
-  });
 
   app.listen(config.get('port'), function () {
     console.log('server is running on port ' + this.address().port);
   });
 };
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-}();
-
-;
 
 /***/ })
-/******/ ])));
+/******/ ]);

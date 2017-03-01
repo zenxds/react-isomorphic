@@ -2,8 +2,14 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import promise from 'redux-promise'
-
 import reducers from '../reducers'
+
+let lastStore
+if (module.hot) {
+  module.hot.accept('../reducers', () => {
+    lastStore.replaceReducer(reducers)
+  })
+}
 
 // const middleware = process.env.NODE_ENV === 'production' ?
 //   [ thunk, promise ] :
@@ -16,5 +22,7 @@ export default function configureStore(initialState) {
     initialState,
     applyMiddleware(...middleware)
   )
+
+  lastStore = store
   return store
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM, { unmountComponentAtNode } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader'
 import routes from '../app/routes'

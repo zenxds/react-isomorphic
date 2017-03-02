@@ -16,7 +16,7 @@ const baseConfig = {
   plugins: []
 }
 
-module.exports = [merge(baseConfig, {
+module.exports = merge(baseConfig, {
   name: 'client',
   target: 'web',
   entry: [
@@ -51,39 +51,7 @@ module.exports = [merge(baseConfig, {
       'process.env.NODE_ENV': JSON.stringify('dev')
     })
   ]
-}), merge(baseConfig, {
-  name: 'server',
-  target: 'node',
-  entry: './server/server.js',
-  output: {
-    filename: 'server.js',
-    libraryTarget: 'commonjs'
-  },
-  externals: [nodeExternals()],
-  node: {
-    __dirname: false
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: getBabelConfig('server')
-      },
-      {
-        test: /\.(css|less|sass)$/,
-        use: ['ignore-loader']
-      }
-    ]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      '__SERVER__': true,
-      'process.env.NODE_ENV': JSON.stringify('dev')
-    })
-  ]
-})]
+})
 
 function getBabelConfig(name) {
   const cfg = JSON.parse(fs.readFileSync(name === 'server' ? './.babelrc' : `./.babelrc.${name}`))

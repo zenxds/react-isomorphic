@@ -24,7 +24,7 @@ const render = () => {
 }
 
 render()
-if (process.env.NODE_ENV === 'dev' && module.hot) {
+if (module.hot) {
   module.hot.accept('../app/routes', () => {
     render()
   })

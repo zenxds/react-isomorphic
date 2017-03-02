@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -161,7 +161,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(34);
+var _server = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(2);
 
@@ -181,13 +181,42 @@ var _koaSwig = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var template = _koaSwig.swig.compile('\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset="UTF-8">\n    <title></title>\n    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">\n    <meta name="format-detection" content="telephone=no,address=no,email=no"/>\n    <meta name="apple-mobile-web-app-capable" content="yes"/>\n    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>\n    <link rel="dns-prefetch" href="//g.alicdn.com" />\n    <link rel="dns-prefetch" href="//img.alicdn.com" />\n    <link rel="dns-prefetch" href="//gm.mmstat.com" />\n    <link rel="dns-prefetch" href="//log.mmstat.com" />\n    <script>\n      window.__INITIAL_STATE__ = {{ state | safe }};\n    </script>\n</head>\n<body>\n\n<div id="app">{{ renderString | safe }}</div>\n\n<script src="/bundle.js"></script>\n</body>\n</html>\n', {
+var template = _koaSwig.swig.compile(`
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no,address=no,email=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="dns-prefetch" href="//g.alicdn.com" />
+    <link rel="dns-prefetch" href="//img.alicdn.com" />
+    <link rel="dns-prefetch" href="//gm.mmstat.com" />
+    <link rel="dns-prefetch" href="//log.mmstat.com" />
+    <script>
+      window.__INITIAL_STATE__ = {{ state | safe }};
+    </script>
+</head>
+<body>
+
+<div id="app">{{ renderString | safe }}</div>
+
+<script src="/bundle.js"></script>
+</body>
+</html>
+`, {
   autoescape: true
 });
 
 module.exports = function (options) {
 
   return async function (ctx, next) {
+    if (/\.json$/.test(ctx.url)) {
+      return await next();
+    }
+
     var store = (0, _configureStore2.default)();
 
     var _ref = await _match({ routes: _routes2.default, location: ctx.url }),
@@ -257,8 +286,8 @@ function _match(location) {
         reject(error);
       } else {
         resolve({
-          redirectLocation: redirectLocation,
-          renderProps: renderProps
+          redirectLocation,
+          renderProps
         });
       }
     });
@@ -272,7 +301,7 @@ function _match(location) {
 "use strict";
 
 
-var Router = __webpack_require__(33);
+var Router = __webpack_require__(31);
 var router = new Router();
 var api = __webpack_require__(29);
 
@@ -368,7 +397,7 @@ var apis = {
 
 if (true) {
   for (var key in apis) {
-    apis[key] = 'http://127.0.0.1:' + _default2.default.port + apis[key];
+    apis[key] = `http://127.0.0.1:${_default2.default.port}` + apis[key];
   }
 }
 
@@ -394,10 +423,6 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRedux = __webpack_require__(2);
 
 var _reactRouter = __webpack_require__(1);
-
-__webpack_require__(31);
-
-__webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -594,7 +619,7 @@ var List = function (_Component) {
         this.props.list.map(function (item) {
           return _react2.default.createElement(
             _reactRouter.Link,
-            { className: 'list-item', to: '/detail/' + item.contentId, key: item.contentId },
+            { className: 'list-item', to: `/detail/${item.contentId}`, key: item.contentId },
             _react2.default.createElement('img', { src: item.thumdImage, className: 'list-img' }),
             _react2.default.createElement(
               'div',
@@ -645,8 +670,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _handleActions;
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _redux = __webpack_require__(3);
@@ -659,25 +682,27 @@ var _reduxActions = __webpack_require__(7);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+exports.default = (0, _reduxActions.handleActions)({
+  [types.REQUEST_LIST_DATA]: function (state, action) {
+    if (action.error) {
+      return state;
+    }
 
-exports.default = (0, _reduxActions.handleActions)((_handleActions = {}, _defineProperty(_handleActions, types.REQUEST_LIST_DATA, function (state, action) {
-  if (action.error) {
-    return state;
+    return _extends({}, state, {
+      list: action.payload
+    });
+  },
+
+  [types.REQUEST_DETAIL_DATA]: function (state, action) {
+    if (action.error) {
+      return state;
+    }
+
+    return _extends({}, state, {
+      detail: action.payload
+    });
   }
-
-  return _extends({}, state, {
-    list: action.payload
-  });
-}), _defineProperty(_handleActions, types.REQUEST_DETAIL_DATA, function (state, action) {
-  if (action.error) {
-    return state;
-  }
-
-  return _extends({}, state, {
-    detail: action.payload
-  });
-}), _handleActions), {
+}, {
   list: [],
   detail: {}
 });
@@ -735,7 +760,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _isomorphicFetch = __webpack_require__(32);
+var _isomorphicFetch = __webpack_require__(30);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -749,14 +774,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * api请求
  */
 exports.default = {
-  requestListData: function requestListData() {
+  requestListData() {
     return (0, _isomorphicFetch2.default)(_api2.default.list).then(function (response) {
       return response.json();
     }).then(function (response) {
       return response.result;
     });
   },
-  requestDetailData: function requestDetailData(id) {
+
+  requestDetailData(id) {
     return (0, _isomorphicFetch2.default)(_api2.default.detail + '?id=' + id).then(function (response) {
       return response.json();
     }).then(function (response) {
@@ -779,15 +805,15 @@ exports.default = configureStore;
 
 var _redux = __webpack_require__(3);
 
-var _reduxThunk = __webpack_require__(37);
+var _reduxThunk = __webpack_require__(35);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxLogger = __webpack_require__(35);
+var _reduxLogger = __webpack_require__(33);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _reduxPromise = __webpack_require__(36);
+var _reduxPromise = __webpack_require__(34);
 
 var _reduxPromise2 = _interopRequireDefault(_reduxPromise);
 
@@ -797,6 +823,13 @@ var _reducers2 = _interopRequireDefault(_reducers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var lastStore = void 0;
+if (false) {
+  module.hot.accept('../reducers', function () {
+    lastStore.replaceReducer(_reducers2.default);
+  });
+}
+
 // const middleware = process.env.NODE_ENV === 'production' ?
 //   [ thunk, promise ] :
 //   [ thunk, promise, logger() ]
@@ -804,6 +837,8 @@ var middleware = [_reduxThunk2.default, _reduxPromise2.default];
 
 function configureStore(initialState) {
   var store = (0, _redux.createStore)(_reducers2.default, initialState, _redux.applyMiddleware.apply(undefined, middleware));
+
+  lastStore = store;
   return store;
 }
 
@@ -970,52 +1005,40 @@ exports.detail = function (ctx, next) {
 /* 30 */
 /***/ (function(module, exports) {
 
-
+module.exports = require("isomorphic-fetch");
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-
+module.exports = require("koa-router");
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = require("isomorphic-fetch");
+module.exports = require("react-dom/server");
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("redux-logger");
 
 /***/ }),
 /* 34 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dom/server");
+module.exports = require("redux-promise");
 
 /***/ }),
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux-logger");
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-promise");
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports) {
-
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1053,7 +1076,7 @@ module.exports = function (app) {
   app.use(__webpack_require__(9));
 
   app.listen(config.get('port'), function () {
-    console.log('server is running on port ' + this.address().port);
+    console.log(`server is running on port ${this.address().port}`);
   });
 };
 

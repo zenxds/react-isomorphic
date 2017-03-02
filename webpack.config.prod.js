@@ -5,9 +5,21 @@ const merge = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
 
 const baseConfig = {
-  entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
+  },
+  module: {
+    rules: []
+  },
+
+  plugins: []
+}
+
+module.exports = [merge(baseConfig, {
+  name: 'client',
+  target: 'web',
+  entry: './client/index.js',
+  output: {
     filename: 'bundle.js'
   },
   module: {
@@ -15,20 +27,9 @@ const baseConfig = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: [
-          path.resolve(__dirname, "node_modules")
-        ]
-      }
-    ]
-   },
-
-   plugins: []
-}
-
-module.exports = [merge(baseConfig, {
-  name: 'client',
-  module: {
-    rules: [
+        exclude: /node_modules/,
+        query: getBabelConfig('client')
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
@@ -43,18 +44,24 @@ module.exports = [merge(baseConfig, {
   ]
 }), merge(baseConfig, {
   name: 'server',
+  target: 'node',
   entry: './server/server.js',
   output: {
     filename: 'server.js',
     libraryTarget: 'commonjs2'
   },
   externals: [nodeExternals()],
-  target: 'node',
   node: {
     __dirname: false
   },
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: getBabelConfig('server')
+      },
       {
         test: /\.(css|less|sass)$/,
         use: ['ignore-loader']
@@ -68,3 +75,10 @@ module.exports = [merge(baseConfig, {
     })
   ]
 })]
+
+function getBabelConfig(name) {
+  const cfg = JSON.parse(fs.readFileSync(name === 'server' ? './.babelrc' : `./.babelrc.${name}`))
+
+  cfg.babelrc = false
+  return cfg
+}

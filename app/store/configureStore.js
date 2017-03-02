@@ -4,13 +4,6 @@ import logger from 'redux-logger'
 import promise from 'redux-promise'
 import reducers from '../reducers'
 
-let lastStore
-if (module.hot) {
-  module.hot.accept('../reducers', () => {
-    lastStore.replaceReducer(reducers)
-  })
-}
-
 // const middleware = process.env.NODE_ENV === 'production' ?
 //   [ thunk, promise ] :
 //   [ thunk, promise, logger() ]
@@ -23,6 +16,11 @@ export default function configureStore(initialState) {
     applyMiddleware(...middleware)
   )
 
-  lastStore = store
+  if (module.hot) {
+    module.hot.accept('../reducers', () => {
+      store.replaceReducer(reducers)
+    })
+  }
+
   return store
 }

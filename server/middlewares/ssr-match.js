@@ -59,7 +59,6 @@ module.exports = function(options) {
 
     for (let component of renderProps.components) {
       if (component && component.WrappedComponent && component.WrappedComponent.fetch) {
-        console.log(component.WrappedComponent.toString())
         const _tasks = component.WrappedComponent.fetch(store.dispatch, params)
         if (Array.isArray(_tasks)) {
           tasks = tasks.concat(_tasks)

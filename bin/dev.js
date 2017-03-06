@@ -1,4 +1,4 @@
-require("babel-register")
+// require("babel-register")
 
 const webpack = require('webpack')
 const Koa = require('koa')

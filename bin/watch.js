@@ -13,7 +13,6 @@ const start = () => {
         cleanCache(id)
       }
     })
-
   })
 }
 

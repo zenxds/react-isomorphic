@@ -26,6 +26,12 @@
           "type": "booleanLiteral",
           "value": true
         }
+      }, {
+        "identifierName": "__API_PREFIX__",
+        "replacement": {
+          "type": "stringLiteral",
+          "value": "http://127.0.0.1:7001"
+        }
       }]
     }]
   ]

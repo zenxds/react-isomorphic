@@ -14958,13 +14958,6 @@ var _temp = function () {
 
 
 
-var lastStore = void 0;
-if (false) {
-  module.hot.accept('../reducers', function () {
-    lastStore.replaceReducer(reducers);
-  });
-}
-
 // const middleware = process.env.NODE_ENV === 'production' ?
 //   [ thunk, promise ] :
 //   [ thunk, promise, logger() ]
@@ -14973,7 +14966,12 @@ var middleware = [__WEBPACK_IMPORTED_MODULE_1_redux_thunk___default.a, __WEBPACK
 function configureStore(initialState) {
   var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* createStore */])(__WEBPACK_IMPORTED_MODULE_4__reducers__["a" /* default */], initialState, __WEBPACK_IMPORTED_MODULE_0_redux__["c" /* applyMiddleware */].apply(undefined, middleware));
 
-  lastStore = store;
+  if (false) {
+    module.hot.accept('../reducers', function () {
+      store.replaceReducer(reducers);
+    });
+  }
+
   return store;
 }
 ;
@@ -14982,8 +14980,6 @@ var _temp = function () {
   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
     return;
   }
-
-  __REACT_HOT_LOADER__.register(lastStore, 'lastStore', '/Users/zenxds/repository/usee-node/app/store/configureStore.js');
 
   __REACT_HOT_LOADER__.register(middleware, 'middleware', '/Users/zenxds/repository/usee-node/app/store/configureStore.js');
 
@@ -15025,7 +15021,7 @@ var apis = {
 
 if (false) {
   for (var key in apis) {
-    apis[key] = 'http://127.0.0.1:' + config.port + apis[key];
+    apis[key] = __API_PREFIX__ + apis[key];
   }
 }
 

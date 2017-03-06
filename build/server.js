@@ -123,11 +123,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var requestListData = exports.requestListData = (0, _reduxActions.createAction)(types.REQUEST_LIST_DATA, function () {
+const requestListData = exports.requestListData = (0, _reduxActions.createAction)(types.REQUEST_LIST_DATA, () => {
   return _api2.default.requestListData();
 });
 
-var requestDetailData = exports.requestDetailData = (0, _reduxActions.createAction)(types.REQUEST_DETAIL_DATA, function (id) {
+const requestDetailData = exports.requestDetailData = (0, _reduxActions.createAction)(types.REQUEST_DETAIL_DATA, id => {
   return _api2.default.requestDetailData(id);
 });
 
@@ -141,8 +141,8 @@ var requestDetailData = exports.requestDetailData = (0, _reduxActions.createActi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var REQUEST_LIST_DATA = exports.REQUEST_LIST_DATA = 'REQUEST_LIST_DATA';
-var REQUEST_DETAIL_DATA = exports.REQUEST_DETAIL_DATA = 'REQUEST_DETAIL_DATA';
+const REQUEST_LIST_DATA = exports.REQUEST_LIST_DATA = 'REQUEST_LIST_DATA';
+const REQUEST_DETAIL_DATA = exports.REQUEST_DETAIL_DATA = 'REQUEST_DETAIL_DATA';
 
 /***/ }),
 /* 7 */
@@ -169,10 +169,6 @@ var _redux = __webpack_require__(3);
 
 var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(25);
-
-var _routes2 = _interopRequireDefault(_routes);
-
 var _configureStore = __webpack_require__(27);
 
 var _configureStore2 = _interopRequireDefault(_configureStore);
@@ -181,7 +177,9 @@ var _koaSwig = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var template = _koaSwig.swig.compile(`
+// import routes from '../../app/routes'
+
+const template = _koaSwig.swig.compile(`
 <!DOCTYPE html>
 <html>
 <head>
@@ -212,16 +210,13 @@ var template = _koaSwig.swig.compile(`
 
 module.exports = function (options) {
 
-  return async function (ctx, next) {
+  return async (ctx, next) => {
     if (/\.json$/.test(ctx.url)) {
       return await next();
     }
 
-    var store = (0, _configureStore2.default)();
-
-    var _ref = await _match({ routes: _routes2.default, location: ctx.url }),
-        redirectLocation = _ref.redirectLocation,
-        renderProps = _ref.renderProps;
+    const store = (0, _configureStore2.default)();
+    const { redirectLocation, renderProps } = await _match({ routes: __webpack_require__(25).default, location: ctx.url });
 
     if (redirectLocation) {
       return await ctx.redirect(redirectLocation.pathname + redirectLocation.search);
@@ -229,44 +224,24 @@ module.exports = function (options) {
       return await next();
     }
 
-    var params = renderProps.params;
-    var tasks = [];
+    const params = renderProps.params;
+    let tasks = [];
 
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = renderProps.components[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var component = _step.value;
-
-        if (component && component.WrappedComponent && component.WrappedComponent.fetch) {
-          var _tasks = component.WrappedComponent.fetch(store.dispatch, params);
-          if (Array.isArray(_tasks)) {
-            tasks = tasks.concat(_tasks);
-          } else if (_tasks && _tasks.then) {
-            tasks.push(_tasks);
-          }
-        }
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
+    for (let component of renderProps.components) {
+      if (component && component.WrappedComponent && component.WrappedComponent.fetch) {
+        console.log(component.WrappedComponent.toString());
+        const _tasks = component.WrappedComponent.fetch(store.dispatch, params);
+        if (Array.isArray(_tasks)) {
+          tasks = tasks.concat(_tasks);
+        } else if (_tasks && _tasks.then) {
+          tasks.push(_tasks);
         }
       }
     }
 
     await Promise.all(tasks);
 
-    var renderString = (0, _server.renderToString)(_react2.default.createElement(
+    const renderString = (0, _server.renderToString)(_react2.default.createElement(
       _reactRedux.Provider,
       { store: store },
       _react2.default.createElement(_reactRouter.RouterContext, renderProps)
@@ -280,8 +255,8 @@ module.exports = function (options) {
 };
 
 function _match(location) {
-  return new Promise(function (resolve, reject) {
-    (0, _reactRouter.match)(location, function (error, redirectLocation, renderProps) {
+  return new Promise((resolve, reject) => {
+    (0, _reactRouter.match)(location, (error, redirectLocation, renderProps) => {
       if (error) {
         reject(error);
       } else {
@@ -301,9 +276,9 @@ function _match(location) {
 "use strict";
 
 
-var Router = __webpack_require__(31);
-var router = new Router();
-var api = __webpack_require__(29);
+const Router = __webpack_require__(31);
+const router = new Router();
+const api = __webpack_require__(29);
 
 /*
  * match all path
@@ -390,14 +365,14 @@ var _default2 = _interopRequireDefault(_default);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var apis = {
+const apis = {
   list: '/api/list.json',
   detail: '/api/detail.json'
 };
 
 if (true) {
-  for (var key in apis) {
-    apis[key] = `http://127.0.0.1:${_default2.default.port}` + apis[key];
+  for (let key in apis) {
+    apis[key] = 'http://127.0.0.1:7001' + apis[key];
   }
 }
 
@@ -414,8 +389,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -426,41 +399,22 @@ var _reactRouter = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+class App extends _react.Component {
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_Component) {
-  _inherits(App, _Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+  render() {
+    return _react2.default.createElement(
+      'div',
+      { className: 'app-container' },
+      this.props.children
+    );
   }
 
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'app-container' },
-        this.props.children
-      );
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }]);
-
-  return App;
-}(_react.Component);
+  componentDidMount() {}
+}
 
 App.propTypes = {};
 
-var mapStateToProps = function mapStateToProps(state) {
+const mapStateToProps = state => {
   return state;
 };
 
@@ -477,8 +431,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -491,71 +443,50 @@ var _actions = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Detail = function (_Component) {
-  _inherits(Detail, _Component);
-
-  function Detail() {
-    _classCallCheck(this, Detail);
-
-    return _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).apply(this, arguments));
+class Detail extends _react.Component {
+  static fetch(dispatch, params) {
+    return dispatch((0, _actions.requestDetailData)(params.id));
   }
 
-  _createClass(Detail, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var detail = this.props.detail;
-      if (detail.id == this.props.params.id) {
-        return;
-      }
-
-      this.constructor.fetch(this.props.dispatch, this.props.params);
+  componentDidMount() {
+    const detail = this.props.detail;
+    if (detail.id == this.props.params.id) {
+      return;
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      var detail = this.props.detail;
-      return _react2.default.createElement(
+
+    this.constructor.fetch(this.props.dispatch, this.props.params);
+  }
+
+  render() {
+    const detail = this.props.detail;
+    return _react2.default.createElement(
+      'div',
+      { className: 'popular-container' },
+      _react2.default.createElement(
         'div',
-        { className: 'popular-container' },
+        { className: 'popular-title' },
+        detail.title
+      ),
+      _react2.default.createElement(
+        'p',
+        { className: 'popular-reason' },
+        detail.content
+      ),
+      _react2.default.createElement('img', { src: detail.thumdImage }),
+      _react2.default.createElement(
+        'div',
+        null,
         _react2.default.createElement(
-          'div',
-          { className: 'popular-title' },
-          detail.title
-        ),
-        _react2.default.createElement(
-          'p',
-          { className: 'popular-reason' },
-          detail.content
-        ),
-        _react2.default.createElement('img', { src: detail.thumdImage }),
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { to: '/' },
-            '\u56DE\u5230\u5217\u8868'
-          )
+          _reactRouter.Link,
+          { to: '/' },
+          '\u56DE\u5230\u5217\u8868'
         )
-      );
-    }
-  }], [{
-    key: 'fetch',
-    value: function fetch(dispatch, params) {
-      return dispatch((0, _actions.requestDetailData)(params.id));
-    }
-  }]);
+      )
+    );
+  }
+}
 
-  return Detail;
-}(_react.Component);
-
-var mapStateToProps = function mapStateToProps(state) {
+const mapStateToProps = state => {
   return state;
 };
 
@@ -572,8 +503,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -586,74 +515,53 @@ var _actions = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var List = function (_Component) {
-  _inherits(List, _Component);
-
-  function List() {
-    _classCallCheck(this, List);
-
-    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
+class List extends _react.Component {
+  static fetch(dispatch) {
+    return dispatch((0, _actions.requestListData)());
   }
 
-  _createClass(List, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      if (this.props.list.length) {
-        return;
-      }
-
-      this.constructor.fetch(this.props.dispatch);
+  componentDidMount() {
+    if (this.props.list.length) {
+      return;
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'popular-list' },
-        this.props.list.map(function (item) {
-          return _react2.default.createElement(
-            _reactRouter.Link,
-            { className: 'list-item', to: `/detail/${item.contentId}`, key: item.contentId },
-            _react2.default.createElement('img', { src: item.thumdImage, className: 'list-img' }),
+
+    this.constructor.fetch(this.props.dispatch);
+  }
+
+  render() {
+    return _react2.default.createElement(
+      'div',
+      { className: 'popular-list' },
+      this.props.list.map(item => {
+        return _react2.default.createElement(
+          _reactRouter.Link,
+          { className: 'list-item', to: `/detail/${item.contentId}`, key: item.contentId },
+          _react2.default.createElement('img', { src: item.thumdImage, className: 'list-img' }),
+          _react2.default.createElement(
+            'div',
+            { className: 'list-info' },
             _react2.default.createElement(
               'div',
-              { className: 'list-info' },
-              _react2.default.createElement(
-                'div',
-                { className: 'list-title' },
-                item.title
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'list-reason' },
-                item.content
-              )
+              { className: 'list-title' },
+              item.title
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'list-reason' },
+              item.content
             )
-          );
-        })
-      );
-    }
-  }], [{
-    key: 'fetch',
-    value: function fetch(dispatch) {
-      return dispatch((0, _actions.requestListData)());
-    }
-  }]);
-
-  return List;
-}(_react.Component);
+          )
+        );
+      })
+    );
+  }
+}
 
 List.propTypes = {
   list: _react.PropTypes.array.isRequired
 };
 
-var mapStateToProps = function mapStateToProps(state) {
+const mapStateToProps = state => {
   return state;
 };
 
@@ -683,7 +591,7 @@ var _reduxActions = __webpack_require__(7);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = (0, _reduxActions.handleActions)({
-  [types.REQUEST_LIST_DATA]: function (state, action) {
+  [types.REQUEST_LIST_DATA]: (state, action) => {
     if (action.error) {
       return state;
     }
@@ -693,7 +601,7 @@ exports.default = (0, _reduxActions.handleActions)({
     });
   },
 
-  [types.REQUEST_DETAIL_DATA]: function (state, action) {
+  [types.REQUEST_DETAIL_DATA]: (state, action) => {
     if (action.error) {
       return state;
     }
@@ -775,19 +683,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 exports.default = {
   requestListData() {
-    return (0, _isomorphicFetch2.default)(_api2.default.list).then(function (response) {
-      return response.json();
-    }).then(function (response) {
-      return response.result;
-    });
+    return (0, _isomorphicFetch2.default)(_api2.default.list).then(response => response.json()).then(response => response.result);
   },
 
   requestDetailData(id) {
-    return (0, _isomorphicFetch2.default)(_api2.default.detail + '?id=' + id).then(function (response) {
-      return response.json();
-    }).then(function (response) {
-      return response.result;
-    });
+    return (0, _isomorphicFetch2.default)(_api2.default.detail + '?id=' + id).then(response => response.json()).then(response => response.result);
   }
 };
 
@@ -823,22 +723,20 @@ var _reducers2 = _interopRequireDefault(_reducers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var lastStore = void 0;
-if (false) {
-  module.hot.accept('../reducers', function () {
-    lastStore.replaceReducer(_reducers2.default);
-  });
-}
-
 // const middleware = process.env.NODE_ENV === 'production' ?
 //   [ thunk, promise ] :
 //   [ thunk, promise, logger() ]
-var middleware = [_reduxThunk2.default, _reduxPromise2.default];
+const middleware = [_reduxThunk2.default, _reduxPromise2.default];
 
 function configureStore(initialState) {
-  var store = (0, _redux.createStore)(_reducers2.default, initialState, _redux.applyMiddleware.apply(undefined, middleware));
+  const store = (0, _redux.createStore)(_reducers2.default, initialState, (0, _redux.applyMiddleware)(...middleware));
 
-  lastStore = store;
+  if (false) {
+    module.hot.accept('../reducers', () => {
+      store.replaceReducer(_reducers2.default);
+    });
+  }
+
   return store;
 }
 
@@ -861,7 +759,7 @@ module.exports = {
 "use strict";
 
 
-var data = [{
+const data = [{
     "contentId": 326664,
     "thumdImage": "https://img.alicdn.com/imgextra/i2/1060815481/TB2V.JEd90jpuFjy0FlXXc0bpXa_!!0-mtopupload.jpg",
     "title": "美美春季装，你的轻盈仙女上线啦！",
@@ -978,17 +876,17 @@ var data = [{
     "content": "早春依旧寒意袭人，虽然偶尔的阳光明媚，但是早上和晚上仍然是挺冷的。那么，就需要时尚又保暖的穿搭啦！所以，毛衣是首选。不过，不是什么毛衣我们都要穿的，要穿就要穿的不一般！你就是你，人间不一样的烟火！就要配上创意十足，超级个性的毛衣！所以，快快跟随小编来看一下这些意想不到的创意之作吧！"
 }];
 
-exports.list = function (ctx, next) {
+exports.list = (ctx, next) => {
     ctx.body = {
         result: data
     };
 };
 
-exports.detail = function (ctx, next) {
-    var item = void 0;
-    var id = ctx.query.id;
+exports.detail = (ctx, next) => {
+    let item;
+    const id = ctx.query.id;
 
-    data.forEach(function (d) {
+    data.forEach(d => {
         if (d.contentId == id) {
             item = d;
         }
@@ -1044,17 +942,17 @@ module.exports = require("redux-thunk");
 "use strict";
 
 
-var path = __webpack_require__(19);
-var co = __webpack_require__(10);
-var config = __webpack_require__(11);
-var convert = __webpack_require__(13);
-var session = __webpack_require__(17);
-var koaStatic = __webpack_require__(18);
-var bodyParser = __webpack_require__(12);
-var swig = __webpack_require__(4);
-var json = __webpack_require__(14);
-var logger = __webpack_require__(15);
-var onerror = __webpack_require__(16);
+const path = __webpack_require__(19);
+const co = __webpack_require__(10);
+const config = __webpack_require__(11);
+const convert = __webpack_require__(13);
+const session = __webpack_require__(17);
+const koaStatic = __webpack_require__(18);
+const bodyParser = __webpack_require__(12);
+const swig = __webpack_require__(4);
+const json = __webpack_require__(14);
+const logger = __webpack_require__(15);
+const onerror = __webpack_require__(16);
 
 module.exports = function (app) {
   app.context.swig = co.wrap(swig({

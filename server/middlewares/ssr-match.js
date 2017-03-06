@@ -4,9 +4,10 @@ import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { match, RouterContext } from 'react-router'
-import routes from '../../app/routes'
 import configureStore from '../../app/store/configureStore'
 import { swig } from 'koa-swig'
+
+// import routes from '../../app/routes'
 
 const template = swig.compile(`
 <!DOCTYPE html>
@@ -45,7 +46,7 @@ module.exports = function(options) {
     }
 
     const store = configureStore()
-    const { redirectLocation, renderProps } = await _match({ routes: routes, location: ctx.url })
+    const { redirectLocation, renderProps } = await _match({ routes: require('../../app/routes').default, location: ctx.url })
 
     if (redirectLocation) {
       return await ctx.redirect(redirectLocation.pathname + redirectLocation.search)
@@ -58,6 +59,7 @@ module.exports = function(options) {
 
     for (let component of renderProps.components) {
       if (component && component.WrappedComponent && component.WrappedComponent.fetch) {
+        console.log(component.WrappedComponent.toString())
         const _tasks = component.WrappedComponent.fetch(store.dispatch, params)
         if (Array.isArray(_tasks)) {
           tasks = tasks.concat(_tasks)

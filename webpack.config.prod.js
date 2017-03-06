@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const baseConfig = {
   output: {
@@ -18,9 +19,11 @@ const baseConfig = {
 module.exports = [merge(baseConfig, {
   name: 'client',
   target: 'web',
-  entry: './client/index.js',
+  entry: {
+    bundle: './client/index.js'
+  },
   output: {
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -32,7 +35,7 @@ module.exports = [merge(baseConfig, {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ExtractTextPlugin.extract('css-loader')
       }
     ]
   },
@@ -40,6 +43,25 @@ module.exports = [merge(baseConfig, {
     new webpack.DefinePlugin({
       '__SERVER__': false,
       'process.env.NODE_ENV': JSON.stringify('prod')
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module) {
+        return module.context && module.context.indexOf('node_modules') !== -1
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      output: {
+        ascii_only: true
+      },
+      compress: {
+        warnings: false,
+        drop_console: false
+      }
+    }),
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: 'main.css'
     })
   ]
 }), merge(baseConfig, {

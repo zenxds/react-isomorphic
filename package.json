@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=dev ./node_modules/.bin/babel-node bin/dev.js",
+    "start": "NODE_ENV=dev ./node_modules/.bin/babel-node scripts/dev.js",
     "build": "webpack --config webpack.config.prod.js --colors --display-error-details",
-    "server": "NODE_ENV=prod node bin/prod.js"
+    "server": "NODE_ENV=prod node build/server.js"
   },
   "author": "dongshuang.xds",
   "license": "ISC",

@@ -45,7 +45,7 @@ module.exports = [merge(baseConfig, {
 }), merge(baseConfig, {
   name: 'server',
   target: 'node',
-  entry: './server/server.js',
+  entry: './scripts/prod.js',
   output: {
     filename: 'server.js',
     libraryTarget: 'commonjs2'

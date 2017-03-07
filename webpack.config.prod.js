@@ -4,6 +4,13 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const autoprefixer = require('autoprefixer')
+
+const postcssConfig =  {
+  plugins: [
+    autoprefixer({ browsers: ["ios_saf >= 7", "android >= 4"] })
+  ]
+}
 
 const baseConfig = {
   output: {
@@ -26,21 +33,39 @@ module.exports = [merge(baseConfig, {
     filename: '[name].js'
   },
   module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: getBabelConfig('client')
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader']
-        })
-      }
-    ]
+    rules: [{
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      query: getBabelConfig('client')
+    }, {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader', {
+          loader: 'postcss-loader',
+          options: postcssConfig
+        }]
+      })
+    }, {
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader', {
+          loader: 'postcss-loader',
+          options: postcssConfig
+        }, 'sass-loader']
+      })
+    }, {
+			test: /.(woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
+			use: 'url-loader?limit=100000'
+		}, {
+		  test: /\.(png|jpg|gif)$/,
+		  use: '@ali/x-image-loader?name=image/[name].[ext]'
+	  }, {
+			test: /\.html$/,
+			use: "html-loader"
+  	}]
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -89,7 +114,7 @@ module.exports = [merge(baseConfig, {
         query: getBabelConfig('server')
       },
       {
-        test: /\.(css|less|sass)$/,
+        test: /\.(css|less|scss)$/,
         use: ['ignore-loader']
       }
     ]
@@ -103,7 +128,8 @@ module.exports = [merge(baseConfig, {
 })]
 
 function getBabelConfig(name) {
-  const cfg = JSON.parse(fs.readFileSync(name === 'server' ? './.babelrc' : `./.babelrc.${name}`))
+  const p = fs.existsSync(`./.babelrc.${name}`) ? `./.babelrc.${name}` : './.babelrc'
+  const cfg = JSON.parse(fs.readFileSync(p))
 
   cfg.babelrc = false
   return cfg

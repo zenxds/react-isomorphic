@@ -2,7 +2,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 import { match, RouterContext } from 'react-router'
 import configureStore from '../../app/store/configureStore'
 import { swig } from 'koa-swig'

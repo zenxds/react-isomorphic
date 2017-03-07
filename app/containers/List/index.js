@@ -5,7 +5,7 @@ import { requestListData } from './actions'
 
 import './style.css'
 
-class List extends Component {
+export default class List extends Component {
   static fetch(dispatch) {
     return dispatch(requestListData())
   }
@@ -40,9 +40,3 @@ class List extends Component {
 List.propTypes = {
   list: PropTypes.array.isRequired
 }
-
-const mapStateToProps = (state) => {
-  return state
-}
-
-export default connect(mapStateToProps)(List)

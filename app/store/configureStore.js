@@ -4,10 +4,10 @@ import logger from 'redux-logger'
 import promise from 'redux-promise'
 import reducers from '../reducers'
 
-// const middleware = process.env.NODE_ENV === 'production' ?
-//   [ thunk, promise ] :
-//   [ thunk, promise, logger() ]
 const middleware = [ thunk, promise ]
+if (!__SERVER__ && process.env.NODE_ENV === 'dev') {
+  middleware.push(logger())
+}
 
 export default function configureStore(initialState) {
   const store = createStore(

@@ -19,6 +19,7 @@ const template = swig.compile(`
     <meta name="format-detection" content="telephone=no,address=no,email=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="stylesheet" href="/main.css">
     <link rel="dns-prefetch" href="//g.alicdn.com" />
     <link rel="dns-prefetch" href="//img.alicdn.com" />
     <link rel="dns-prefetch" href="//gm.mmstat.com" />
@@ -30,7 +31,7 @@ const template = swig.compile(`
 <body>
 
 <div id="app">{{ renderString | safe }}</div>
-
+<script src="/vendor.js"></script>
 <script src="/bundle.js"></script>
 </body>
 </html>

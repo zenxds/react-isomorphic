@@ -28,7 +28,7 @@ module.exports = merge(baseConfig, {
   output: {
     filename: 'bundle.js'
   },
-  devtool: "cheap-eval-source-map"
+  devtool: "cheap-eval-source-map",
   module: {
     rules: [
       {

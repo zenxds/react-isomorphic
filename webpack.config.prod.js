@@ -35,7 +35,10 @@ module.exports = [merge(baseConfig, {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract('css-loader')
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader']
+        })
       }
     ]
   },
@@ -47,7 +50,7 @@ module.exports = [merge(baseConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: function (module) {
-        return module.context && module.context.indexOf('node_modules') !== -1
+        return module.resource && /(node_modules|\.css)/.test(module.resource)
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -60,6 +63,7 @@ module.exports = [merge(baseConfig, {
       }
     }),
     new ExtractTextPlugin({
+      disable: false,
       allChunks: true,
       filename: 'main.css'
     })

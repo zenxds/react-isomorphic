@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { requestListData } from '../actions'
+import { requestListData } from './actions'
+
+import './style.css'
 
 class List extends Component {
   static fetch(dispatch) {

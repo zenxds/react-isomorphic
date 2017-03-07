@@ -459,3 +459,39 @@ template {
 [hidden] {
   display: none;
 }
+/**
+ * List
+ */
+a {
+  text-decoration: none;
+}
+
+.list-item {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #cecece;
+}
+
+.list-item img {
+    float: left;
+    width: 90px;
+    height: 120px;
+    margin-right: 9px;
+}
+.list-info {
+    overflow: hidden;
+    min-height: 132px;
+}
+.list-title {
+    color: #404040;
+    font-size: 17px;
+    font-size: 1.7rem;
+    line-height: 27px;
+    max-height: 54px;
+}
+
+.list-reason {
+    margin-top: 5px;
+    color: #727272;
+    line-height: 24px;
+}

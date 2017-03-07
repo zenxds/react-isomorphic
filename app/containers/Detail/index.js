@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { requestDetailData } from '../actions'
+import { requestDetailData } from './actions'
 
 class Detail extends Component {
   static fetch(dispatch, params) {

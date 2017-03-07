@@ -1,5 +1,3 @@
-import config from '../../config/default.js'
-
 const apis = {
   list: '/api/list.json',
   detail: '/api/detail.json'
